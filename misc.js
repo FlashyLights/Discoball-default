@@ -16,11 +16,6 @@ class miscModule {
 			function: self.restartCommand,
 			permCheck: self.perms.isInAdminRoom
 		});
-		self.commands.addCommand({
-			trigger: "!listgames",
-			function: self.listGamesCommand,
-			permCheck: self.perms.isInAdminRoom
-		});
 	}
 
 	restartCommand(msg) {
@@ -30,7 +25,7 @@ class miscModule {
 		});
 	}
 
-	listGamesCommand(msg) {
+	listGamesCommand() {
 		var self = this;
 		self.bot.dclient.guilds.map(function(guild) {
 			var allMembers = guild.members;
@@ -38,11 +33,11 @@ class miscModule {
 			var streaming = {};
 			var memberStats = {};
 			allMembers.map(function(member){
-				if (member.presence.game) {
-					memberStats[member.id] = member.presence.game.name;
-					playing[member.presence.game.name] = ++playing[member.presence.game.name] || 1;
-					if (member.presence.game.streaming) {
-						streaming[member.presence.game.name] = ++streaming[member.presence.game.name] || 1;
+				if (member.presence.activity && member.presence.activity.type == "PLAYING") {
+					memberStats[member.id] = member.presence.activity.name;
+					playing[member.presence.activity.name] = ++playing[member.presence.activity.name] || 1;
+					if (member.presence.activity.streaming) {
+						streaming[member.presence.activity.name] = ++streaming[member.presence.activity.name] || 1;
 					}
 				}
 			});

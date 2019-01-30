@@ -29,7 +29,7 @@ class jokesModule {
 		});
 		self.commands.addCommand({
 			trigger: ["!lmgtfy", "!google"],
-			function: self.kittensCommand,
+			function: self.googleCommand,
 			permCheck: self.perms.pass
 		});
 		self.commands.addCommand({
